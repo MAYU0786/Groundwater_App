@@ -1,42 +1,46 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Box } from '@mui/material'; // Import Box for padding
-import Navbar from './components/Navbar';
-import HeroSection from './components/Homepage/HeroSection';
-import FeaturesSection from './components/Homepage/FeaturesSection';
-import Footer from './components/Homepage/Footer';
-import PredictionForm from './components/PredictionForm/PredictionForm';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import { Box, CssBaseline, ThemeProvider } from "@mui/material"
+import Navbar from "./components/Navbar"
+import HeroSection from "./components/Homepage/HeroSection"
+import FeaturesSection from "./components/Homepage/FeaturesSection"
+import Footer from "./components/Homepage/Footer"
+import PredictionForm from "./components/PredictionForm/PredictionForm"
+import theme from "./theme"
 
 function App() {
   return (
-    <Router>
-      <div>
-        {/* Navbar is fixed at the top */}
-        <Navbar />
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Router>
+        <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
+          {/* Navbar is fixed at the top */}
+          <Navbar />
 
-        {/* Add padding to the main content to avoid overlap with the Navbar */}
-        <Box sx={{ paddingTop: '64px' }}>
-          <Routes>
-            {/* Home Page Route */}
-            <Route
-              path="/"
-              element={
-                <>
-                  <HeroSection />
-                  <FeaturesSection />
-                </>
-              }
-            />
-            {/* Prediction Form Route */}
-            <Route path="/predict" element={<PredictionForm />} />
-          </Routes>
+          {/* Main content */}
+          <Box component="main" sx={{ flexGrow: 1 }}>
+            <Routes>
+              {/* Home Page Route */}
+              <Route
+                path="/"
+                element={
+                  <>
+                    <HeroSection />
+                    <FeaturesSection />
+                  </>
+                }
+              />
+              {/* Prediction Form Route */}
+              <Route path="/predict" element={<PredictionForm />} />
+            </Routes>
+          </Box>
+
+          {/* Footer */}
+          <Footer />
         </Box>
-
-        {/* Footer */}
-        <Footer />
-      </div>
-    </Router>
-  );
+      </Router>
+    </ThemeProvider>
+  )
 }
 
-export default App;
+export default App
+
